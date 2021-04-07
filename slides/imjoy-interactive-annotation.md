@@ -228,7 +228,7 @@ await viewer.add_shapes([], {name:"annotation"})
 
 
 -----
-### 3D Visualization with ITK/VTK Viewer + Zarr
+### 3D Visualization with ITK/VTK + Zarr
 In collabration with Matt McCormick @ Kitware
 
 <button class="button" onclick="runDemo3()">Run</button>
