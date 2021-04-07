@@ -183,13 +183,14 @@ Emma Lundberg Group @ KTH Royal Institute of Technology
 # Key concept
  * Sandboxed plugins connected via Remote Procedure calls
  * Workflow composition via asynchronous programming
+ * Open Integration
 
 
 -----
 
 Data science tools in the browser
 
-<img src="https://raw.githubusercontent.com/imjoy-team/ImJoy/master/docs/assets/imjoy-overview.jpg"></img>
+<img src="https://raw.githubusercontent.com/imjoy-team/ImJoy/master/docs/assets/imjoy-overview.jpg" style="height: 500px;"></img>
 
 -----
 ### Calling Python from JS with RPC
