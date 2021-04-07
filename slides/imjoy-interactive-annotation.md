@@ -192,6 +192,8 @@ Data science tools in the browser
 
 <img src="https://raw.githubusercontent.com/imjoy-team/ImJoy/master/docs/assets/imjoy-overview.jpg" style="height: 500px;"></img>
 
+Try it here: [https://imjoy.io](https://imjoy.io)
+
 -----
 ### Calling Python from JS with RPC
 
@@ -254,6 +256,9 @@ Made by Trevor Manz
  * Emma Lundberg Group
  * KTH Royal Institute of Technology
  * Science for Life Laboratory
+
+
+Follow us on twitter @ImJoyTeam
 
 
 -----
