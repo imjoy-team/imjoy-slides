@@ -234,7 +234,7 @@ In collabration with Matt McCormick @ Kitware
 
 ### Visualization with Vizarr
 
-Made by Trevor Manz
+Made by Trevor Manz et. al.
 <iframe width="100%" height="500px" src="https://hms-dbmi.github.io/vizarr/?source=https://s3.embassy.ebi.ac.uk/idr/zarr/v0.1/4495402.zarr"  frameborder="0" allowfullscreen></iframe>
 
 -----
