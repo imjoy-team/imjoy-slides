@@ -179,7 +179,6 @@ Emma Lundberg Group @ KTH Royal Institute of Technology
 * Offline support
 
 -----
-
 # Key concept
  * Sandboxed plugins connected via Remote Procedure calls
  * Workflow composition via asynchronous programming
@@ -190,7 +189,7 @@ Emma Lundberg Group @ KTH Royal Institute of Technology
 
 Data science tools in the browser
 
-<img src="https://raw.githubusercontent.com/imjoy-team/ImJoy/master/docs/assets/imjoy-overview.jpg" style="height: 500px;"></img>
+<img src="https://raw.githubusercontent.com/imjoy-team/ImJoy/master/docs/assets/imjoy-overview.jpg" style="height: 450px;"></img>
 
 Try it here: [https://imjoy.io](https://imjoy.io)
 
