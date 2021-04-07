@@ -246,7 +246,7 @@ Made by Trevor Manz
  * [File Manager](https://imjoy-team.github.io/elFinder/)
  * [ImageJ.JS](https://ij.imjoy.io)
  * [Collaborative Cloud Annotation](https://github.com/imjoy-team/imjoy-cloud-annotation)
- * Remote rendering with napari and BigDataViewer
+ * Remote rendering with [napari](https://napari.org/) and [BigDataViewer](https://imagej.net/BigDataViewer)
 
 -----
 ### Acknowledgements
