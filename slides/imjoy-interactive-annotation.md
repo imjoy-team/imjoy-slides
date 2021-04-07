@@ -229,8 +229,7 @@ await viewer.add_shapes([], {name:"annotation"})
 In collabration with Matt McCormick @ Kitware
 
 <button class="button" onclick="runDemo3()">Run</button>
-<div id="window-4" style="display: inline-block;width: 100%; height: calc(100vh - 200px);"></div>
-
+<div id="window-4" style="display: inline-block;width: 100%; height: calc(100vh - 250px);"></div>
 
 
 -----
@@ -258,12 +257,6 @@ Made by Trevor Manz
 
 -----
 
-# Questions
+# Thank You!
 
 -----
-
-## made with
-
-#### [reveal.js](https://github.com/hakimel/reveal.js)
-
-#### [excalidraw](https://github.com/excalidraw/excalidraw)
