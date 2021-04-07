@@ -183,7 +183,7 @@ Emma Lundberg Group @ KTH Royal Institute of Technology
 # Key concept
  * Sandboxed plugins connected via Remote Procedure calls
  * Workflow composition via asynchronous programming
- * Open Integration
+ * Open Integration with existing software
 
 
 -----
