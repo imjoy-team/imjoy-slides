@@ -112,17 +112,13 @@ const ZarrPythonCode = `
 <script lang="python">
 import zarr
 from imjoy_rpc import api
-
 from imjoy_rpc import register_default_codecs
-
-
-import zarr
 from fsspec.implementations.http import HTTPFileSystem
+register_default_codecs()
+
 fs = HTTPFileSystem()
 http_map = fs.get_mapper("https://openimaging.github.io/demos/multi-scale-chunked-compressed/build/data/medium.zarr")
 z_group = zarr.open(http_map, mode='r')
-
-register_default_codecs()
 
 class ImJoyPlugin:
     async def setup(self):
