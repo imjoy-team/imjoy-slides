@@ -238,10 +238,10 @@ Made by Trevor Manz
 <iframe width="100%" height="500px" src="https://hms-dbmi.github.io/vizarr/?source=https://s3.embassy.ebi.ac.uk/idr/zarr/v0.1/4495402.zarr"  frameborder="0" allowfullscreen></iframe>
 
 -----
-### Work in Progress
-
- * [File Manager](https://imjoy-team.github.io/elFinder/)
+### Other features and Work in Progress
+ * [Jupypter Notebook Integration](https://github.com/imjoy-team/imjoy-jupyter-extension)
  * [ImageJ.JS](https://ij.imjoy.io)
+ * [File Manager](https://imjoy-team.github.io/elFinder/)
  * [Collaborative Cloud Annotation](https://github.com/imjoy-team/imjoy-cloud-annotation)
  * Remote rendering with [napari](https://napari.org/) and [BigDataViewer](https://imagej.net/BigDataViewer)
 
