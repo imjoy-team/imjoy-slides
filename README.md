@@ -1,6 +1,8 @@
 # ImJoy Slides
 
-Interactive presentation powered by ImJoy and reveal.js. You can run ImJoy plugins directly in your slides.
+Interactive presentation powered by [ImJoy](https://imjoy.io) and [reveal.js](https://revealjs.com/). 
+
+You can now run ImJoy plugins directly in your slides!
 
 ## Usage
 
