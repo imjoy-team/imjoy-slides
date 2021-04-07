@@ -9,89 +9,144 @@
 
     <title>reveal.js</title>
 
-    <link rel="stylesheet" href="reveal.js/dist/reset.css" />
-    <link rel="stylesheet" href="reveal.js/dist/reveal.css" />
-    <link rel="stylesheet" href="reveal.js/dist/theme/serif.css" id="theme" />
+    <link rel="stylesheet" href="assets/reveal.js/reset.css" />
+    <link rel="stylesheet" href="assets/reveal.js/reveal.css" />
+   
 
     <!-- Theme used for syntax highlighted code -->
     <link
       rel="stylesheet"
-      href="reveal.js/plugin/highlight/monokai.css"
+      href="assets/reveal.js/plugin/highlight/monokai.css"
       id="highlight-theme"
     />
   </head>
   <body>
-    <div class="reveal">
+    <div class="reveal" style="z-index: 0">
       <div class="slides">
         <section
           data-markdown
           data-separator="-----"
           data-separator-vertical="---"
         >
-          <textarea data-template>
-            # Title Page
-
-            ### Date
-
-            -----
-            
-            Vertical slides are separated by `- - -`
-            
-            ---
-            
-            Vertical slides are separated by `- - -` .
-            
-            ---
-            
-            Vertical slides are separated by `- - -` ..
-     
-            -----
-            
-            # title
-            ## skills
-            * one
-            * two
-            * three
-            
-            ## heading
-            8. three
-            1. one
-            1. two
-         
-            
-            -----
-            
-
-            # Questions
-
-            -----
-
-            ## made with
-
-            #### [reveal.js](https://github.com/hakimel/reveal.js)
-
-            #### [excalidraw](https://github.com/excalidraw/excalidraw)
-
+          <textarea data-template id="markdown-slide-content">
+            # ImJoy
           </textarea>
         </section>
       </div>
     </div>
-
-    <script src="reveal.js/dist/reveal.js"></script>
-    <script src="reveal.js/plugin/notes/notes.js"></script>
-    <script src="reveal.js/plugin/markdown/markdown.js"></script>
-    <script src="reveal.js/plugin/highlight/highlight.js"></script>
-    <script src="reveal.js/plugin/zoom/zoom.js"></script>
+    <div id="window-container" style="z-index: 100"></div>
+    <div id="menu-container" style="z-index: 200"></div>
+    <script src="assets/reveal.js/reveal.js"></script>
+    <script src="assets/reveal.js/plugin/notes/notes.js"></script>
+    <script src="assets/reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="assets/reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="assets/reveal.js/plugin/zoom/zoom.js"></script>
+    <script src="https://lib.imjoy.io/imjoy-loader.js"></script>
     <script>
-      // More info about initialization & config:
-      // - https://revealjs.com/initialization/
-      // - https://revealjs.com/config/
-      Reveal.initialize({
-        hash: true,
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(location.search);
+        return results === null
+          ? ""
+          : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+      function addCss(url) {
+        return new Promise((resolve, reject) => {
+          const head = document.head;
+          const link = document.createElement("link");
+          link.type = "text/css";
+          link.rel = "stylesheet";
+          link.href = url;
+          link.onload = resolve
+          link.onerror = reject
+          head.appendChild(link);
+        })
+      }
 
-        // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom],
-      });
+      function runScripts(content)
+      {
+          const re = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
+          let match;
+          while (match = re.exec(content)) {
+            // full match is in match[0], whereas captured groups are in ...[1], ...[2], etc.
+            window.eval(match[1]);
+          }
+      }
+
+      async function startRevealJS(){
+        const slides = getUrlParameter('slides')
+        if(slides){
+          const response = await fetch(slides)
+          const content = await response.text()
+          const elm = document.getElementById('markdown-slide-content')
+          try{
+            runScripts(content)
+          }
+          catch(e){
+            console.error(e)
+            api.showMessage(`Failed to execute script: ${e}`)
+          }
+          elm.innerHTML = content
+        }
+        const theme = getUrlParameter('theme') || 'black'
+        try{
+          if(theme){
+            if(theme.startsWith('http')){
+              await addCss(theme)
+            }
+            else{
+              await addCss(`assets/reveal.js/theme/${theme}.css`)
+            }
+          }
+        }
+        catch(e){
+          alert('Failed to load theme: ' + theme)
+        }
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+          hash: true,
+          // Learn about plugins: https://revealjs.com/plugins/
+          plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom],
+        });
+      }
+
+      loadImJoyBasicApp({
+          process_url_query: true,
+          show_window_title: false,
+          show_progress_bar: true,
+          show_empty_window: true,
+          menu_style: { position: "absolute", right: 0, top: "4px" },
+          window_style: {width: '100%', height: '100%'},
+          main_container: null,
+          menu_container: "menu-container",
+          window_manager_container: "window-container",
+          imjoy_api: { } // override some imjoy API functions here
+      }).then(async app => {
+          // get the api object from the root plugin
+          const api = app.imjoy.api;
+          // if you want to let users to load new plugins, add a menu item
+          app.addMenuItem({
+              label: "➕ Load Plugin",
+              callback() {
+              const uri = prompt(
+                  `Please type a ImJoy plugin URL`,
+                  "https://github.com/imjoy-team/imjoy-plugins/blob/master/repository/ImageAnnotator.imjoy.html"
+              );
+              if (uri) app.loadPlugin(uri);
+              },
+          });
+          // expose global variables
+          window.api = api;
+          window.imjoy = app.imjoy
+          window.app = app;
+          startRevealJS();
+      }).catch(e =>{
+          console.error(e)
+          startRevealJS();
+      })      
     </script>
   </body>
 </html>
