@@ -62,7 +62,7 @@ const JSPluginCode = `
 window.callPython = async function(){
     const pythonPlugin = await api.getPlugin('PythonPlugin')
     const result = await pythonPlugin.add(10, 99)
-    await api.alert("10 + 99 =" + result)
+    document.getElementById("result").innerHTML = "10 + 99 =" + result
 }
 
 class ImJoyPlugin {
@@ -79,6 +79,7 @@ api.export(new ImJoyPlugin())
 <window lang="html">
   <div>
     <button class="button" onclick="callPython()"> Calculate in Python</button>
+    <h3 id="result"></h3>
   </div>
 </window>
 
