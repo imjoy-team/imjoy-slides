@@ -240,8 +240,8 @@ Made by Trevor Manz et. al.
 -----
 ### Other features and Work in Progress
  * [Jupypter Notebook Integration](https://github.com/imjoy-team/imjoy-jupyter-extension)
- * [ImageJ.JS](https://ij.imjoy.io)
- * [File Manager](https://imjoy-team.github.io/elFinder/)
+ * [ImageJ.JS](https://ij.imjoy.io) <button onclick="api.showDialog({src:'https://ij.imjoy.io'})">Run</button>
+ * [File Manager](https://imjoy-team.github.io/elFinder/) <button onclick="api.showDialog({src:'https://imjoy-team.github.io/elFinder/'})">Run</button>
  * [Collaborative Cloud Annotation](https://github.com/imjoy-team/imjoy-cloud-annotation)
  * Remote rendering with [napari](https://napari.org/) and [BigDataViewer](https://imagej.net/BigDataViewer)
 
