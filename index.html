@@ -17,6 +17,17 @@
     .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
       text-transform: none!important;
     }
+    .button {
+      cursor: pointer;
+      background-color: #3b60f4; /* Green */
+      border-radius: 3px;
+      color: white;
+      padding: 10px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }
   </style>
 </head>
 
@@ -45,10 +56,10 @@
       if (slides) {
         const url = await githubUrlRaw(slides, ".md") || slides;
         const response = await fetch(url)
-        const content = await response.text()
+        let content = await response.text()
         const elm = document.getElementById('markdown-slide-content')
         try {
-          runScripts(content)
+          content = runScripts(content)
         } catch (e) {
           console.error(e)
           api.showMessage(`Failed to execute script: ${e}`)
@@ -114,6 +125,45 @@
       window.imjoy = app.imjoy
       window.app = app;
       startRevealJS();
+
+      app.imjoy.pm
+          .reloadPluginRecursively({
+            uri:
+              "https://imjoy-team.github.io/jupyter-engine-manager/Jupyter-Engine-Manager.imjoy.html"
+          })
+          .then(enginePlugin => {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const engine = urlParams.get("engine");
+            const spec = urlParams.get("spec");
+            if (engine) {
+              enginePlugin.api
+                .createEngine({
+                  name: "MyCustomEngine",
+                  nbUrl: engine,
+                  url: engine.split("?")[0]
+                })
+                .then(() => {
+                  console.log("Jupyter Engine connected!");
+                })
+                .catch(e => {
+                  console.error("Failed to connect to Jupyter Engine", e);
+                });
+            } else {
+              enginePlugin.api
+                .createEngine({
+                  name: "MyBinder Engine",
+                  url: "https://mybinder.org",
+                  spec: spec || "oeway/imjoy-binder-image/master"
+                })
+                .then(() => {
+                  console.log("Binder Engine connected!");
+                })
+                .catch(e => {
+                  console.error("Failed to connect to MyBinder Engine", e);
+                });
+            }
+          });
     }).catch(e => {
       console.error(e)
       startRevealJS();
