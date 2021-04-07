@@ -1,4 +1,4 @@
-<startup-script>
+```javascript execute
 const PythonPluginCode = `
 <config lang="json">
 {
@@ -151,7 +151,7 @@ async function runDemo2(){
 async function runDemo3(){
     await api.createWindow({src: 'https://if.imjoy.io', fullscreen: true, config: {fold: [2]}, data: {code: ZarrPythonCode}, window_id: "window-4"})
 }
-</startup-script>
+```
 
 # ImJoy
 

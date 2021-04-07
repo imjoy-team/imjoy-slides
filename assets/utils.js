@@ -28,12 +28,12 @@ function addCss(url) {
 
 function runScripts(content)
 {
-    const re = /<startup-script\b[^>]*>([\s\S]*?)<\/startup-script>/gm;
+    const re = /```javascript execute\n([\s\S]*?)\n```/gm;
     let match;
     while (match = re.exec(content)) {
       // full match is in match[0], whereas captured groups are in ...[1], ...[2], etc.
       window.eval(match[1]);
-      content = content.replace(match[1], '')
+      content = content.replace('```javascript execute\n'+match[1]+'\n```', '')
     }
     return content
 }
