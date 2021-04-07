@@ -166,7 +166,7 @@ Emma Lundberg Group @ KTH Royal Institute of Technology
 -----
 # Challenges
 
-* **Interactivity**: GUI running on laptop and mobile
+* **Interactivity**: Respond to GUI on laptop/mobile
 * **Scalability**: Remote storage and compute resources
 * **Privacy**: Edge computing
 
