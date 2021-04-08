@@ -4,6 +4,7 @@ Interactive presentation powered by [ImJoy](https://imjoy.io) and [reveal.js](ht
 
 You can now run ImJoy plugins directly in your slides!
 
+[ImJoy Slides Demo: See it in action!](https://imjoy-team.github.io/imjoy-slides/?theme=white&slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md)
 ## Getting started
 
 Here are the steps for making interactive presentation with ImJoy Slides:
