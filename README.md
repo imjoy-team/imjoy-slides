@@ -8,7 +8,7 @@ You can now run ImJoy plugins directly in your slides!
 
 Here are the steps for making interactive presentation with ImJoy Slides:
 
- 1. Prepare your slides in markdown format, for example, the following markdown will be rendered as two slides:
+ 1. Prepare your slides in markdown format and save as a file with `.md` extension, for example:
  ```markdown
 ## Slide 1
 A paragraph with some text and a [link](http://imjoy.io).
@@ -26,7 +26,7 @@ A run button: <button class="button" onclick="api.showDialog({src: 'https://kaib
 
  ```
 
- 2. Save your markdown file to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md
+ 2. Store your markdown file to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md
 
  3. Construct a presentation URL with your markdown file URL: `https://imjoy-team.github.io/imjoy-slides/?slides=URL_TO_YOUR_SLIDES`. For example: `https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
 
