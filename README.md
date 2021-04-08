@@ -10,18 +10,19 @@ Here are the steps for making interactive presentation with ImJoy Slides:
 
  1. Prepare your slides in markdown format, for example, the following markdown will be rendered as two slides:
  ```markdown
-# Slide #1
+## Slide 1
+A paragraph with some text and a [link](http://imjoy.io).
 
-## You can run ImJoy plugins in your slides.
+A run button: <button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
 
-<button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
-
------
-
-# Slide # 2
+---
+## Slide 2
 
 * bullet point 1
 * bullet point 2
+
+---
+## Slide 3
 
  ```
 
