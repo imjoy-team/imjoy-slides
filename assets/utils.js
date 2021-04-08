@@ -5,7 +5,56 @@
  * Use two levels of REs to avoid REDOS.
  */
 
- function getUrlParameter(name) {
+const addStyle = (() => {
+  const style = document.createElement('style');
+  document.head.append(style);
+  return (styleString) => style.textContent = styleString;
+})();
+
+const ScrollCSS = `
+.scrollable-slide {
+  height: 100%;
+  overflow-y: auto !important;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+background-color: #333;
+}
+::-webkit-scrollbar-corner {
+background-color: #333;
+}`
+
+function makeSlideScrollable(){
+  function resetSlideScrolling(slide) {
+      slide.classList.remove('scrollable-slide');
+  }
+
+  function handleSlideScrolling(slide) {
+      if (slide.scrollHeight >= 800) {
+          slide.classList.add('scrollable-slide');
+      }
+  }
+
+  Reveal.addEventListener('ready', function (event) {
+      handleSlideScrolling(event.currentSlide);
+  });
+
+  Reveal.addEventListener('slidechanged', function (event) {
+      if (event.previousSlide) {
+          resetSlideScrolling(event.previousSlide);
+      }
+      handleSlideScrolling(event.currentSlide);
+  });
+
+  addStyle(ScrollCSS);
+}
+
+function getUrlParameter(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
   var results = regex.exec(location.search);
