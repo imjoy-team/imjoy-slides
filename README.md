@@ -12,9 +12,9 @@ Here are the steps for making interactive presentation with ImJoy Slides:
  ```markdown
 # Slide #1
 
-## subtitle
+## You can run ImJoy plugins in your slides.
 
-Normal text
+<button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
 
 -----
 
@@ -25,12 +25,11 @@ Normal text
 
  ```
 
- [Here](https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md) you can find a more complete example.
+ 2. Save your markdown file to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md
 
- 2. Save your markdown file to [Gist](https://gist.github.com/) or any Github repo. Construct a URL `https://imjoy-team.github.io/imjoy-slides/?slides=URL_TO_YOUR_SLIDES`, for example: https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md.
+ 3. Construct a presentation URL with your markdown file URL: `https://imjoy-team.github.io/imjoy-slides/?slides=URL_TO_YOUR_SLIDES`. For example: `https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
 
-
-## Run ImJoy plugins in your slides
+## Advanced features
 
 ### Add a run button
 The easiest way to run a ImJoy plugin is to insert a Run button, to do that, you can insert the following code to your markdown file:
@@ -85,12 +84,14 @@ Instead of always using a button to trigger a function, you can also run a speci
 
 ```
 2. In a script block, add register an event callback function as follows:
-```
+````
 ```javascript execute
 Reveal.addEventListener('my-awesome-slide-loaded', async function(){
     await api.createWindow({src: 'https://kaibu.org', window_id: 'awesome-window'})
 })
 ```
-```
+````
+
+[Here](https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md) you can find a more complete example.
 
 For more details about the implementation, see https://revealjs.com/markdown/.
