@@ -39,9 +39,9 @@ Data science tools in the browser
 
 <button class="button" onclick="runDemo1()">Run</button>
 
-<div id="window-1" style="display: inline-block;width: 40%; height: calc(100vh - 200px);"></div>
+<div id="window-1" style="display: inline-block;width: 46%; height: calc(100vh - 200px);"></div>
 
-<div id="window-2" style="display: inline-block;width: 40%; height: calc(100vh - 200px);"></div>
+<div id="window-2" style="display: inline-block;width: 46%; height: calc(100vh - 200px);"></div>
 
 -----
 
