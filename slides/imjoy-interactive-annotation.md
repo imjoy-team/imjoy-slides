@@ -35,10 +35,8 @@ Data science tools in the browser
 
 
 -----
+<!-- .slide: data-state="demo1" -->
 ### Calling Python from JS with RPC
-
-<button class="button" onclick="runDemo1()">Run</button>
-
 <div id="window-1" style="display: inline-block;width: 46%; height: calc(100vh - 200px);"></div>
 
 <div id="window-2" style="display: inline-block;width: 46%; height: calc(100vh - 200px);"></div>
@@ -68,10 +66,10 @@ await viewer.add_shapes([], {name:"annotation"})
 
 
 -----
+<!-- .slide: data-state="demo3" -->
 ### 3D Visualization with ITK/VTK + Zarr
 In collabration with Matt McCormick @ Kitware
 
-<button class="button" onclick="runDemo3()">Run</button>
 <div id="window-4" style="display: inline-block;width: 100%; height: calc(100vh - 250px);"></div>
 
 
@@ -245,11 +243,11 @@ api.export(ImJoyPlugin())
 </script>
 `
 
-async function runDemo1(){
+Reveal.addEventListener('demo1', async function(){
     await api.createWindow({src: 'https://if.imjoy.io', config: {fold: [1]}, data: {code: PythonPluginCode}, window_id: "window-1"})
 
     await api.createWindow({src: 'https://if.imjoy.io', config: {fold: [1, 29]}, data: {code: JSPluginCode}, window_id: "window-2"})
-}
+})
 
 async function runDemo2(){
  const viewer = await api.showDialog({src: "https://kaibu.org/#/app", name: "Kaibu"})
@@ -257,7 +255,11 @@ async function runDemo2(){
         await viewer.add_shapes([], {name:"annotation"})
 }
 
-async function runDemo3(){
+Reveal.addEventListener('demo3', async function(){
     await api.createWindow({src: 'https://if.imjoy.io', fullscreen: true, config: {fold: [2]}, data: {code: ZarrPythonCode}, window_id: "window-4"})
-}
+})
+
+
+
+
 ```
