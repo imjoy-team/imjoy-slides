@@ -4,21 +4,23 @@ Powering interactive presentation with ImJoy plugins
 
 You can run ImJoy plugins, for example: <button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
 
-----
+-----
 <!-- .slide: data-state="embed-demo" -->
 ## Embed ImJoy windows
 
 ImJoy windows can be directly embedded to your slide:
 
-<div id="kaibu-window" style="display: inline-block;width: 100%; height: calc(100vh - 250px);"></div>
+<div id="kaibu-window" style="display: inline-block;width: 100%; height: calc(100vh - 300px);"></div>
 
 
-----
+-----
 ## Getting started
 
- * [Make your own slides...](https://github.com/imjoy-team/imjoy-slides)
+You can make your own interactive slides by writing a markdown file!
 
- * [Example slides](https://imjoy-team.github.io/imjoy-slides/?theme=white&slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md)
+ * [Make your own slides...](https://github.com/imjoy-team/imjoy-slides#getting-started)
+
+ * [Demo](https://imjoy-team.github.io/imjoy-slides/?theme=white&slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md)
 
 
 
