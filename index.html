@@ -38,7 +38,7 @@
 <body>
   <div class="reveal" style="z-index: 0">
     <div class="slides">
-      <section id="markdown-slide-content" data-markdown data-separator="-----" data-separator-vertical="---">
+      <section class="markdown-slide-content" data-markdown data-separator="-----" data-separator-vertical="---">
         <textarea data-template>
             # ImJoy
         </textarea>
@@ -76,12 +76,11 @@
       }
       catch(e){
       }
-      const elm = document.getElementById('markdown-slide-content')
-      document.querySelectorAll("#markdown-slide-content").forEach(e => {
+      const elm = document.querySelector('.markdown-slide-content')
+      document.querySelectorAll(".markdown-slide-content").forEach(e => {
         if(e !== elm)
         e.parentNode.removeChild(e)
       });
-
       if (content) {
         try {
           content = runScripts(content)
@@ -131,6 +130,7 @@
       }
 
       makeSlideScrollable();
+      api.createWindow({type: 'Slide Editor', data: {code: content}})
     }
 
     loadImJoyBasicApp({
@@ -178,7 +178,6 @@
       window.imjoy = app.imjoy
       window.app = app;
       startRevealJS()
-
 
       await app.loadPlugin("https://imjoy-team.github.io/imjoy-slides/assets/SlideEditor.imjoy.html")
       app.imjoy.pm
