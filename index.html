@@ -38,10 +38,10 @@
 <body>
   <div class="reveal" style="z-index: 0">
     <div class="slides">
-      <section data-markdown data-separator="-----" data-separator-vertical="---">
-        <textarea data-template id="markdown-slide-content">
+      <section id="markdown-slide-content" data-markdown data-separator="-----" data-separator-vertical="---">
+        <textarea data-template>
             # ImJoy
-          </textarea>
+        </textarea>
       </section>
     </div>
   </div>
@@ -55,22 +55,46 @@
   <script src="assets/utils.js"></script>
   <script src="https://lib.imjoy.io/imjoy-loader.js"></script>
   <script>
-    async function startRevealJS() {
+    async function startRevealJS(){
       const slides = getUrlParameter('slides')
-      if (slides) {
+      const theme = getUrlParameter('theme') || 'black'
+      let content = null
+      if(slides){
         const url = await githubUrlRaw(slides, ".md") || slides;
         const response = await fetch(url)
-        let content = await response.text()
-        const elm = document.getElementById('markdown-slide-content')
+        content = await response.text()
+      }
+      await initializeRevealJS(content, theme);
+    }
+
+    async function initializeRevealJS(content, theme) {
+      let currentSlide = null
+      try{
+        const s = Reveal.getCurrentSlide();
+        // save current slide position
+        currentSlide = Reveal.getIndices(s);
+      }
+      catch(e){
+      }
+      const elm = document.getElementById('markdown-slide-content')
+      document.querySelectorAll("#markdown-slide-content").forEach(e => {
+        if(e !== elm)
+        e.parentNode.removeChild(e)
+      });
+
+      if (content) {
         try {
           content = runScripts(content)
         } catch (e) {
           console.error(e)
           api.showMessage(`Failed to execute script: ${e}`)
         }
-        elm.innerHTML = content
+        elm.setAttribute('data-separator', "-----")
+        elm.setAttribute('data-separator-vertical', '---')
+        elm.removeAttribute('data-markdown-parsed')
+        elm.innerHTML = `<textarea data-template>${content}</textarea>`
       }
-      const theme = getUrlParameter('theme') || 'black'
+      
       try {
         if (theme) {
           if (theme.startsWith('http')) {
@@ -91,6 +115,20 @@
         // Learn about plugins: https://revealjs.com/plugins/
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom],
       });
+      
+      try {
+        Reveal.layout();
+        if(currentSlide) {
+          // restore slide position
+          Reveal.slide(currentSlide.h, currentSlide.v, currentSlide.f);
+        }
+        else{
+          Reveal.slide(0, 0, 0);
+        }
+        Reveal.sync();
+      } catch (ex) {
+        console.error(ex)
+      }
 
       makeSlideScrollable();
     }
@@ -127,12 +165,22 @@
           if (uri) app.loadPlugin(uri);
         },
       });
+
+      await api.registerService({
+        name: 'ImJoy Slides',
+        type: '#imjoy-slides',
+        async show(content, theme){
+          await initializeRevealJS(content, theme)
+        }
+      })
       // expose global variables
       window.api = api;
       window.imjoy = app.imjoy
       window.app = app;
-      startRevealJS();
+      startRevealJS()
 
+
+      await app.loadPlugin("https://imjoy-team.github.io/imjoy-slides/assets/SlideEditor.imjoy.html")
       app.imjoy.pm
           .reloadPluginRecursively({
             uri:
@@ -173,7 +221,7 @@
           });
     }).catch(e => {
       console.error(e)
-      startRevealJS();
+      startRevealJS(slides, theme);
     })
   </script>
 </body>
