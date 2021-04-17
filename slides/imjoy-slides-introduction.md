@@ -25,7 +25,7 @@ You can save and preview changes directly.
 -----
 ## Advanced features
 
- For more advanced features, see [here](https://slides.imjoy.io#getting-started)
+ For more advanced features, see [here](https://github.com/imjoy-team/imjoy-slides#getting-started)
 
 -----
 ## Thank you!
