@@ -53,6 +53,7 @@
   <script src="assets/reveal.js/plugin/highlight/highlight.js"></script>
   <script src="assets/reveal.js/plugin/zoom/zoom.js"></script>
   <script src="assets/utils.js"></script>
+  <script src="assets/fullscreen.js"></script>
   <script src="https://lib.imjoy.io/imjoy-loader.js"></script>
   <script>
     let currentSlidesContent = null
@@ -88,6 +89,14 @@
         // show editor
         const p = await api.getPlugin('Slide Editor')
         await p.run({data: {code: currentSlidesContent}})
+      }
+      if (screenfull.enabled) {
+        app.addMenuItem({
+          label: " ⤡ Full Screen",
+          async callback() {     
+              screenfull.toggle(document.documentElement);
+          }
+        })
       }
     }
 
