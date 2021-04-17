@@ -55,16 +55,28 @@
   <script src="assets/utils.js"></script>
   <script src="https://lib.imjoy.io/imjoy-loader.js"></script>
   <script>
+    let currentSlidesContent = null
     async function startRevealJS(){
       const slides = getUrlParameter('slides')
       const theme = getUrlParameter('theme') || 'black'
-      let content = null
+      
       if(slides){
         const url = await githubUrlRaw(slides, ".md") || slides;
         const response = await fetch(url)
-        content = await response.text()
+        currentSlidesContent = await response.text()
       }
-      await initializeRevealJS(content, theme);
+      await initializeRevealJS(currentSlidesContent, theme);
+
+      app.imjoy.pm
+        .reloadPluginRecursively({uri: "https://imjoy-team.github.io/imjoy-slides/assets/SlideEditor.imjoy.html"});
+      app.addMenuItem({
+        label: "✏️ Edit Slides",
+        async callback() {
+          const p = await api.getPlugin('Slide Editor')
+          await p.run({data: {code: currentSlidesContent}})
+        },
+      });
+
     }
 
     async function initializeRevealJS(content, theme) {
@@ -93,6 +105,8 @@
         elm.removeAttribute('data-markdown-parsed')
         elm.innerHTML = `<textarea data-template>${content}</textarea>`
       }
+
+      currentSlidesContent = content
       
       try {
         if (theme) {
@@ -176,9 +190,7 @@
       window.api = api;
       window.imjoy = app.imjoy
       window.app = app;
-      startRevealJS()
-
-      await app.loadPlugin("https://imjoy-team.github.io/imjoy-slides/assets/SlideEditor.imjoy.html")
+      startRevealJS();
       app.imjoy.pm
           .reloadPluginRecursively({
             uri:
