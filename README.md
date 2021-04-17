@@ -9,27 +9,37 @@ You can now run ImJoy plugins directly in your slides!
 
 Here are the steps for making interactive presentation with ImJoy Slides:
 
- 1. Prepare your slides in markdown format and save as a file with `.md` extension, for example:
- ```markdown
-## Slide 1
-A paragraph with some text and a [link](http://imjoy.io).
+ 1. Go to https://slides.imjoy.io?edit=1 and write your slides in [markdown format](https://www.markdownguide.org/basic-syntax/) with our builtin slide editor. For example:
+    ```markdown
+    ## Slide 1
+    A paragraph with some text and a [link](http://imjoy.io).
 
-A run button: <button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
+    A run button: <button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
 
----
-## Slide 2
+    -----
+    ## Slide 2
 
-* bullet point 1
-* bullet point 2
+    * bullet point 1
+    * bullet point 2
 
----
-## Slide 3
+    -----
+    ## Slide 3
 
- ```
+    ```
+  As shown above, you can use `-----` to separate horizontal slides. Optionally, if you want to fit more content in one slides, you can use `---` to separate vertical sections.
 
- 2. Store your markdown file to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md
+  With the builtin editor, you can edit directly and click "Save" (or press the "Shift+Enter" key combination). The slides will be rendered directly behind the editor, you can either move the editor or close it to see the preview. To open the editor again, you can click "Edit Slides" in the ImJoy icon located in the upper-right corner.
 
- 3. Construct a presentation URL with your markdown file URL: `https://imjoy-team.github.io/imjoy-slides/?slides=URL_TO_YOUR_SLIDES`. For example: `https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
+  ![](./assets/screenshot-imjoy-slide-editor.png)
+
+  At any time, you can click the `Export` button to export your slides as a markdown file, we recommend you do that before you close the browser tab to avoid losing your slides. 
+
+  If you like, you can also use your own text editor locally, but you won't be able to preview it as easy as the builtin editor.
+
+
+ 2. To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://imjoy-team.github.io/imjoy-slides/?slides=URL_TO_YOUR_SLIDES`. For example: `https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
+
+ Tips: 1) you can pass `&theme=white` to specify a slide theme, [here](https://revealjs.com/themes/) you can find a list of available themes; 2) you can pass `&edit=1` if you want to display the slide editor when the page is loaded 
 
 ## Advanced features
 

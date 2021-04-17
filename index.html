@@ -59,6 +59,7 @@
     async function startRevealJS(){
       const slides = getUrlParameter('slides')
       const theme = getUrlParameter('theme') || 'black'
+      const edit = getUrlParameter('edit')
       
       if(slides){
         const url = await githubUrlRaw(slides, ".md") || slides;
@@ -67,16 +68,27 @@
       }
       await initializeRevealJS(currentSlidesContent, theme);
 
-      app.imjoy.pm
+      await app.imjoy.pm
         .reloadPluginRecursively({uri: "https://imjoy-team.github.io/imjoy-slides/assets/SlideEditor.imjoy.html"});
       app.addMenuItem({
         label: "✏️ Edit Slides",
         async callback() {
           const p = await api.getPlugin('Slide Editor')
+          const lastContent = window.localStorage.getItem('config_Slide Editor_imjoy-slides-content')
+          if(lastContent && lastContent != currentSlidesContent){
+            if(await api.confirm("Would you like to restore the slides you edited last time?")){
+              await p.run({data: {code: lastContent}})
+              return
+            }
+          }
           await p.run({data: {code: currentSlidesContent}})
         },
       });
-
+      if(edit){
+        // show editor
+        const p = await api.getPlugin('Slide Editor')
+        await p.run({data: {code: currentSlidesContent}})
+      }
     }
 
     async function initializeRevealJS(content, theme) {
