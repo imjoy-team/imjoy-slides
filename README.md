@@ -4,7 +4,7 @@ Interactive presentation powered by [ImJoy](https://imjoy.io) and [reveal.js](ht
 
 You can now run ImJoy plugins directly in your slides!
 
-[ImJoy Slides Demo: See it in action!](https://imjoy-team.github.io/imjoy-slides/?theme=white&slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md)
+[ImJoy Slides Demo: See it in action!](https://slides.imjoy.io/?theme=white&slides=https://slides.imjoy.io/blob/master/slides/imjoy-interactive-annotation.md)
 ## Getting started
 
 Here are the steps for making interactive presentation with ImJoy Slides:
@@ -37,7 +37,7 @@ Here are the steps for making interactive presentation with ImJoy Slides:
   If you like, you can also use your own text editor locally, but you won't be able to preview it as easy as the builtin editor.
 
 
- 2. To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://imjoy-team.github.io/imjoy-slides/?slides=URL_TO_YOUR_SLIDES`. For example: `https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://imjoy-team.github.io/imjoy-slides/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
+ 2. To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://slides.imjoy.io/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://slides.imjoy.io/?slides=URL_TO_YOUR_SLIDES`. For example: `https://slides.imjoy.io/?slides=https://slides.imjoy.io/blob/master/slides/basic.md`. You can try it [here](https://slides.imjoy.io/?slides=https://slides.imjoy.io/blob/master/slides/basic.md).
 
  Tips: 1) you can pass `&theme=white` to specify a slide theme, [here](https://revealjs.com/themes/) you can find a list of available themes; 2) you can pass `&edit=1` if you want to display the slide editor when the page is loaded 
 
@@ -104,6 +104,6 @@ Reveal.addEventListener('my-awesome-slide-loaded', async function(){
 ```
 ````
 
-[Here](https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md) you can find a more complete example.
+[Here](https://slides.imjoy.io/blob/master/slides/imjoy-interactive-annotation.md) you can find a more complete example.
 
 For more details about the implementation, see https://revealjs.com/markdown/.
