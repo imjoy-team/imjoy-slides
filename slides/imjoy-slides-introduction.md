@@ -20,7 +20,7 @@ You can make your own interactive slides by writing a markdown file!
 
  * [Make your own slides...](https://slides.imjoy.io#getting-started)
 
- * [Demo](https://slides.imjoy.io/?theme=white&slides=https://slides.imjoy.io/blob/master/slides/imjoy-interactive-annotation.md)
+ * [Demo](https://slides.imjoy.io/?theme=white&slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md)
 
 
 
