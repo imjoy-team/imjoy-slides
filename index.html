@@ -58,9 +58,12 @@
   <script src="https://lib.imjoy.io/imjoy-loader.js"></script>
   <script>
     let currentSlidesContent = null
+    let defaultTheme = 'black'
+    let defaultTransition = 'fade'
     async function startRevealJS(){
       const slides = getUrlParameter('slides')
-      const theme = getUrlParameter('theme') || 'black'
+      defaultTheme = getUrlParameter('theme') || defaultTheme
+      defaultTransition = getUrlParameter('transition') || defaultTransition
       const edit = getUrlParameter('edit')
       
       if(slides){
@@ -68,7 +71,7 @@
         const response = await fetch(url)
         currentSlidesContent = await response.text()
       }
-      await initializeRevealJS(currentSlidesContent, theme);
+      await initializeRevealJS(currentSlidesContent, defaultTheme, defaultTransition);
 
       await app.imjoy.pm
         .reloadPluginRecursively({uri: "https://slides.imjoy.io/assets/SlideEditor.imjoy.html"});
@@ -101,7 +104,7 @@
       }
     }
 
-    async function initializeRevealJS(content, theme) {
+    async function initializeRevealJS(content, theme, transition) {
       let currentSlide = null
       try{
         const s = Reveal.getCurrentSlide();
@@ -147,6 +150,8 @@
         width: "100%",
         height: "100%",
         hash: true,
+        // slideNumber: true,
+        transition: transition || 'fade', // none/fade/slide/convex/concave/zoom
         math: {
           mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
           config: 'TeX-AMS_HTML-full',
@@ -223,8 +228,9 @@
       await api.registerService({
         name: 'ImJoy Slides',
         type: '#imjoy-slides',
-        async show(content, theme){
-          await initializeRevealJS(content, theme)
+        async show(content, config ){
+          const { theme, transition } = config || {}
+          await initializeRevealJS(content, theme || defaultTheme, transition || defaultTransition)
         }
       })
       // expose global variables

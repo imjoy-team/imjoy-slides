@@ -39,12 +39,20 @@ Here are the steps for making interactive presentation with ImJoy Slides:
 
 ### Share your slide with others
 To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://slides.imjoy.io/?slides=URL_TO_YOUR_SLIDES`. For example: `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
-### Specify the theme of your slides
-You can add `&theme=white` after into the URL to specify a slide theme, [here](https://revealjs.com/themes/) you can find a list of available themes; 2) you can pass `&edit=1` if you want to display the slide editor when the page is loaded 
 
+Note: you can pass `&edit=1` if you want to display the slide editor when the page is loaded.
+### Specify the theme of your slides
+You can add `&theme=white` after into the URL to specify a slide theme.
+
+A list of available theme can be found [here](https://revealjs.com/themes/).
+
+### Specify the transition of your slides
+You can add `&transition=convex` after into the URL to specify a slide transition.
+
+A list of available transition styles can be found [here](https://revealjs.com/transitions/).
 ### Change the background of a specific slide
 
-While you can change the `theme` globally, you can specify the background for a specific slide by adding the following line to the beginning of your slide:
+You can also specify the background for a specific slide by adding the following line to the beginning of your slide:
 ```markdown
 ----
 <!-- .slide: data-background="red" -->
