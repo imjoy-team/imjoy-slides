@@ -16,13 +16,21 @@ ImJoy windows can be directly embedded to your slide:
 -----
 ## Getting started
 
-You can make your own interactive slides by writing a markdown file!
+To make your own slides, you can open the slides editor.
 
- * [Make your own slides...](https://slides.imjoy.io#getting-started)
+ ![](https://slides.imjoy.io/assets/screenshot-imjoy-slide-editor.png)
 
- * [Demo](https://slides.imjoy.io/?theme=white&slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/imjoy-interactive-annotation.md)
+You can save and preview changes directly.
 
+-----
+## Advanced features
 
+ For more advanced features, see [here](https://slides.imjoy.io#getting-started)
+
+-----
+## Thank you!
+
+ImJoy Slides is made by the [@ImJoyTeam](https://twitter.com/imjoyteam).
 
 <!-- startup script  -->
 ```javascript execute
