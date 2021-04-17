@@ -58,8 +58,10 @@ Fragments are used to highlight or incrementally reveal individual elements on a
 For example, with the following markdown, you will first see "Item 2", then "Item 1":
 ```markdown
 - Item 1 <!-- .element: class="fragment" data-fragment-index="2" -->
-- Item 2 <!-- .element: class="fragment" data-fragment-index="1" -->
+- Item 2 <!-- .element: class="fragment fade-up" data-fragment-index="1" -->
 ```
+
+You can custom the fragment style by setting different values for the fragment `class`, more info can be found [here](https://revealjs.com/fragments/).
 ### Insert math equations
 
 You can add math equations in LaTeX (based on [MathJax](https://www.mathjax.org/)), see an example here:
