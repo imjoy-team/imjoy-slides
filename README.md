@@ -35,10 +35,39 @@ Here are the steps for making interactive presentation with ImJoy Slides:
   If you like, you can also use your own text editor locally, but you won't be able to preview it as easy as the builtin editor.
 
 
- 2. To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://slides.imjoy.io/?slides=URL_TO_YOUR_SLIDES`. For example: `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
+## Basic features
 
- Tips: 1) you can pass `&theme=white` to specify a slide theme, [here](https://revealjs.com/themes/) you can find a list of available themes; 2) you can pass `&edit=1` if you want to display the slide editor when the page is loaded 
+### Share your slide with others
+To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://slides.imjoy.io/?slides=URL_TO_YOUR_SLIDES`. For example: `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
+### Specify the theme of your slides
+You can add `&theme=white` after into the URL to specify a slide theme, [here](https://revealjs.com/themes/) you can find a list of available themes; 2) you can pass `&edit=1` if you want to display the slide editor when the page is loaded 
 
+### Change the background of a specific slide
+
+While you can change the `theme` globally, you can specify the background for a specific slide by adding the following line to the beginning of your slide:
+```markdown
+----
+<!-- .slide: data-background="red" -->
+# A slide in red
+
+```
+
+### Reveal fragments incrementally
+Fragments are used to highlight or incrementally reveal individual elements on a slide. If you want to reveal a line gradually, you can add a comment after the line: `<!-- .element: class="fragment" data-fragment-index="1" -->` (change the index number according the order you want it to be revealed).
+
+For example, with the following markdown, you will first see "Item 2", then "Item 1":
+```markdown
+- Item 1 <!-- .element: class="fragment" data-fragment-index="2" -->
+- Item 2 <!-- .element: class="fragment" data-fragment-index="1" -->
+```
+### Insert math equations
+
+You can add math equations in LaTeX (based on [MathJax](https://www.mathjax.org/)), see an example here:
+```markdown
+
+`$$ J(\theta_0,\theta_1) = \sum_{i=0} $$`
+
+```
 ## Advanced features
 
 ### Add a run button
@@ -71,7 +100,7 @@ It's also possible to embed a window directly to the slide. To do that, you need
 ### Add a script block
 Even though we can use the `onclick` expression to execute JS code, it's not convenient if we want to define longer functions. To support that, you can define a JS code block in markdown by specifying its language as `javascript execute`, for example:
 
-````
+````markdown
 ```javascript execute
 function myCustomFunction(){
 
@@ -94,7 +123,7 @@ Instead of always using a button to trigger a function, you can also run a speci
 
 ```
 2. In a script block, add register an event callback function as follows:
-````
+````markdown
 ```javascript execute
 Reveal.addEventListener('my-awesome-slide-loaded', async function(){
     await api.createWindow({src: 'https://kaibu.org', window_id: 'awesome-window'})
