@@ -37,8 +37,8 @@
 
 <body>
   <div class="reveal" style="z-index: 0">
-    <div class="slides">
-      <section class="markdown-slide-content" data-markdown data-separator="-----" data-separator-vertical="---">
+    <div class="slides markdown-slide-content">
+      <section data-markdown data-separator="-----" data-separator-vertical="---">
         <textarea data-template>
             # ImJoy
         </textarea>
@@ -89,10 +89,12 @@
       catch(e){
       }
       const elm = document.querySelector('.markdown-slide-content')
-      document.querySelectorAll(".markdown-slide-content").forEach(e => {
-        if(e !== elm)
-        e.parentNode.removeChild(e)
-      });
+      const container = elm.parentElement;
+      for (var c = 0; c < container.childNodes.length; c++) {
+          if (container.childNodes[c] !== elm) {
+            container.removeChild(container.childNodes[c--]);
+          }
+      }
       if (content) {
         try {
           content = runScripts(content)
@@ -100,10 +102,7 @@
           console.error(e)
           api.showMessage(`Failed to execute script: ${e}`)
         }
-        elm.setAttribute('data-separator', "-----")
-        elm.setAttribute('data-separator-vertical', '---')
-        elm.removeAttribute('data-markdown-parsed')
-        elm.innerHTML = `<textarea data-template>${content}</textarea>`
+        elm.innerHTML = `<section data-markdown data-separator="-----" data-separator-vertical="---"><textarea data-template>${content}</textarea></section>`
       }
 
       currentSlidesContent = content
