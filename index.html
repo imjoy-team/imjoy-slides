@@ -107,6 +107,8 @@
             container.removeChild(container.childNodes[c--]);
           }
       }
+      currentSlidesContent = content
+
       if (content) {
         try {
           content = runScripts(content)
@@ -117,8 +119,6 @@
         elm.innerHTML = `<section data-markdown data-separator="-----" data-separator-vertical="---"><textarea data-template>${content}</textarea></section>`
       }
 
-      currentSlidesContent = content
-      
       try {
         if (theme) {
           if (theme.startsWith('http')) {
