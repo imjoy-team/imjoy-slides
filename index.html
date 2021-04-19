@@ -61,7 +61,7 @@
     let defaultTheme = 'black'
     let defaultTransition = 'fade'
     async function startRevealJS(){
-      const slides = getUrlParameter('slides')
+      const slides = getUrlParameter('slides') || 'https://raw.githubusercontent.com/imjoy-team/imjoy-slides/master/slides/imjoy-slides-introduction.md'
       defaultTheme = getUrlParameter('theme') || defaultTheme
       defaultTransition = getUrlParameter('transition') || defaultTransition
       const edit = getUrlParameter('edit')
@@ -237,7 +237,7 @@
       window.api = api;
       window.imjoy = app.imjoy
       window.app = app;
-      startRevealJS();
+      await startRevealJS();
       app.imjoy.pm
           .reloadPluginRecursively({
             uri:
@@ -276,6 +276,12 @@
                 });
             }
           });
+      app.addMenuItem({
+        label: "ℹ️ Github",
+        callback(){
+          window.open("https://github.com/imjoy-team/imjoy-slides#readme")
+        }
+      })
     }).catch(e => {
       console.error(e)
       startRevealJS(slides, theme);
