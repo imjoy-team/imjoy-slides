@@ -94,13 +94,13 @@ To add a draggable and resizable window, you can call `api.createWindow()` as in
 ### Embed a window in a slide
 It's also possible to embed a window directly to the slide. To do that, you need to:
 1. Insert a div tag in the place where you want to insert the window in your markdown file. The div tag will be used as a window container. You will also need to set a unique `id`, if necessary also set the style of the container element. For example:
-```
+```markdown
 ## My Slide
 
 <div id="window-x" style="display: inline-block;width: 46%; height: calc(100vh - 200px);"></div>
 ```
 2. When you call `api.createWindow`, pass a `window_id` key with the value of the container div id you defined above. For example:
-```
+```markdown
 ## My Slide
 <button class="button" onclick="api.createWindow({src: 'https://kaibu.org', window_id: 'window-x'})">Run</button>
 
