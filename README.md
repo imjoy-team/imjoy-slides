@@ -9,23 +9,23 @@ You can now run ImJoy plugins directly in your slides!
 
 Here are the steps for making interactive presentation with ImJoy Slides:
 
- 1. Go to https://slides.imjoy.io?edit=1 and write your slides in [markdown format](https://www.markdownguide.org/basic-syntax/) with our builtin slide editor. For example:
-    ```markdown
-    ## Slide 1
-    A paragraph with some text and a [link](http://imjoy.io).
+Go to https://slides.imjoy.io?edit=1 and write your slides in [markdown format](https://www.markdownguide.org/basic-syntax/) with our builtin slide editor. For example:
+```markdown
+## Slide 1
+A paragraph with some text and a [link](http://imjoy.io).
 
-    A run button: <button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
+A run button: <button class="button" onclick="api.showDialog({src: 'https://kaibu.org'})">Run</button>
 
-    -----
-    ## Slide 2
+-----
+## Slide 2
 
-    * bullet point 1
-    * bullet point 2
+* bullet point 1
+* bullet point 2
 
-    -----
-    ## Slide 3
+-----
+## Slide 3
 
-    ```
+```
   As shown above, you can use `-----` to separate horizontal slides. Optionally, if you want to fit more content in one slides, you can use `---` to separate vertical sections.
 
   With the builtin editor, you can edit directly and click "Save" (or press the "Shift+Enter" key combination). The slides will be rendered directly behind the editor, you can either move the editor or close it to see the preview. To open the editor again, you can click ["Edit Slides"](https://github.com/imjoy-team/imjoy-slides/blob/master/assets/screenshot-imjoy-slide-editor.png) in the ImJoy icon located in the upper-right corner.
