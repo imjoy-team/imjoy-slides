@@ -144,6 +144,10 @@
         alert('Failed to load theme: ' + theme)
       }
       if(typeof Reveal.removeEventListeners === 'function') Reveal.removeEventListeners();
+      // remove all the event listeners via cloning the node
+      const old_element = document.querySelector( '.reveal' );
+      const new_element = old_element.cloneNode(true);
+      old_element.parentNode.replaceChild(new_element, old_element);
       // More info about initialization & config:
       // - https://revealjs.com/initialization/
       // - https://revealjs.com/config/
