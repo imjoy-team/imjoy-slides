@@ -60,6 +60,27 @@
     let currentSlidesContent = null
     let defaultTheme = 'black'
     let defaultTransition = 'fade'
+    let customEventListeners = {}
+    const mainElem = document.querySelector('.reveal');
+    // add event listener hook to keep track of the event added later
+    let oldRevealAddEventListener = mainElem.addEventListener
+    mainElem.addEventListener = (event, handler) => {
+      if(!customEventListeners[event])
+        customEventListeners[event] = [handler]
+      else
+        customEventListeners[event].push(handler)
+      oldRevealAddEventListener.apply(mainElem, [event, handler])
+    }
+
+    function resetCustomEventListeners(){
+      for(let evt in customEventListeners){
+        for(let handler of customEventListeners[evt]){
+          Reveal.removeEventListener(evt, handler)
+        }
+      }
+      customEventListeners = {}
+    }
+
     async function startRevealJS(){
       const slides = getUrlParameter('slides') || 'https://raw.githubusercontent.com/imjoy-team/imjoy-slides/master/slides/imjoy-slides-introduction.md'
       defaultTheme = getUrlParameter('theme') || defaultTheme
@@ -105,6 +126,8 @@
     }
 
     async function initializeRevealJS(content, theme, transition) {
+      resetCustomEventListeners();
+
       let currentSlide = null
       try{
         const s = Reveal.getCurrentSlide();
@@ -144,10 +167,6 @@
         alert('Failed to load theme: ' + theme)
       }
       if(typeof Reveal.removeEventListeners === 'function') Reveal.removeEventListeners();
-      // remove all the event listeners via cloning the node
-      const old_element = document.querySelector( '.reveal' );
-      const new_element = old_element.cloneNode(true);
-      old_element.parentNode.replaceChild(new_element, old_element);
       // More info about initialization & config:
       // - https://revealjs.com/initialization/
       // - https://revealjs.com/config/
