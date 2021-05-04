@@ -244,7 +244,7 @@ async function githubUrlRaw(url, extFilter) {
         return file.filename.endsWith(extFilter);
       })[0];
       return selected_file && selected_file.raw_url;
-    } else return data.files[Object.values(data.files)[0]].raw_url;
+    } else return data.files[Object.keys(data.files)[0]].raw_url;
   }
   if (!url.includes("blob") || !url.includes("github")) {
     return null;
