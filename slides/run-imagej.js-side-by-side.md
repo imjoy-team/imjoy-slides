@@ -8,7 +8,7 @@ You can run ImageJ.JS directly in the slides:
 ## Try ImageJ Macro
 
 A basic ImageJ macro example:
-<div id="macro-editor-1"></div>
+<div id="macro-editor-1" style="calc(100vh - 200px)"></div>
 
 -----
 <!-- startup script  -->
