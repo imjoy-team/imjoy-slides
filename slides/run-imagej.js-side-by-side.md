@@ -64,7 +64,7 @@ async function initializeMacroEditor(editor_container, code){
               ijElm.style.width = '48%';
               ijElm.style.height = editorElm.style.height;
               editorElm.parentNode.insertBefore(ijElm, editorElm.nextSibling);
-
+              Reveal.layout();
               try {
                   let ij = await api.getWindow("ImageJ.JS-" + editor_container)
                   if(!ij){
