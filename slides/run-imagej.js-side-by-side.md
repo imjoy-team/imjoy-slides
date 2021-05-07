@@ -66,17 +66,17 @@ async function initializeMacroEditor(editor_container, code){
           visible: true,
           shortcut: 'Shift-Enter',
           async callback(content) {
-              //put the editor side by side
-              editorElm.style.width = '40%';
-              const ijElm = document.createElement('div');
-              ijElm.id = 'imagej-' + editor_container
-              ijElm.style.display = 'inline-block';
-              ijElm.style.width = '48%';
-              ijElm.style.height = editorElm.style.height;
-              editorElm.parentNode.insertBefore(ijElm, editorElm.nextSibling);
               try {
                   let ij = await api.getWindow("ImageJ.JS-" + editor_container)
                   if(!ij){
+                      //put the editor side by side
+                      editorElm.style.width = '40%';
+                      const ijElm = document.createElement('div');
+                      ijElm.id = 'imagej-' + editor_container
+                      ijElm.style.display = 'inline-block';
+                      ijElm.style.width = '48%';
+                      ijElm.style.height = editorElm.style.height;
+                      editorElm.parentNode.insertBefore(ijElm, editorElm.nextSibling);
                       ij = await api.createWindow({src:"https://ij.imjoy.io", name:"ImageJ.JS-" + editor_container, window_id: 'imagej-' + editor_container})
                   }
                   await ij.runMacro(content)
@@ -112,7 +112,6 @@ run("Analyze Particles...", "size=5-Infinity add");
 })
 
 Reveal.addEventListener('ij-macro-2', async ()=>{
-    // download imagej macro remotely
     const response = await fetch("https://wsr.imagej.net/download/Examples/Macro/Colors_of_2021.ijm")
     const code = await response.text()
     initializeMacroEditor('macro-editor-2', code)
