@@ -59,11 +59,11 @@ async function initializeMacroEditor(editor_container, code){
           shortcut: 'Shift-Enter',
           async callback(content) {
               //put the editor side by side
-              editorElm.style.width = '40%';
+              editorElm.style.width = '38.2%'; // golden ratio
               const ijElm = document.createElement('div');
               ijElm.id = 'imagej-' + editor_container
               ijElm.style.display = 'inline-block';
-              ijElm.style.width = '48%';
+              ijElm.style.width = '61.8%';
               ijElm.style.height = editorElm.style.height;
               editorElm.parentNode.insertBefore(ijElm, editorElm.nextSibling);
               try {
