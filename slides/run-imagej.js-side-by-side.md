@@ -1,14 +1,22 @@
 # Running ImageJ.JS in ImJoy Slides
 
-You can run ImageJ.JS directly in the slides:
+You can run ImageJ.JS directly:
 <button class="button" onclick="startImageJ()">Start</button>
 
+Or embed it to your slide.
+
 -----
-<!-- .slide: data-state="ij-macro-slide-loaded" -->
+<!-- .slide: data-state="ij-macro-1" -->
 ## Try ImageJ Macro
 
 A basic ImageJ macro example:
 <div id="macro-editor-1"></div>
+
+-----
+<!-- .slide: data-state="ij-macro-2" -->
+## Another example
+
+<div id="macro-editor-2"></div>
 
 -----
 <!-- startup script  -->
@@ -59,11 +67,11 @@ async function initializeMacroEditor(editor_container, code){
           shortcut: 'Shift-Enter',
           async callback(content) {
               //put the editor side by side
-              editorElm.style.width = '38.2%'; // golden ratio
+              editorElm.style.width = '40%';
               const ijElm = document.createElement('div');
               ijElm.id = 'imagej-' + editor_container
               ijElm.style.display = 'inline-block';
-              ijElm.style.width = '61.8%';
+              ijElm.style.width = '48%';
               ijElm.style.height = editorElm.style.height;
               editorElm.parentNode.insertBefore(ijElm, editorElm.nextSibling);
               try {
@@ -93,7 +101,7 @@ async function initializeMacroEditor(editor_container, code){
     })
 }
 
-Reveal.addEventListener('ij-macro-slide-loaded', ()=>{
+Reveal.addEventListener('ij-macro-1', async ()=>{
     const code = `run("Blobs (25K)");
 setAutoThreshold("Default");
 setOption("BlackBackground", true);
@@ -102,4 +110,12 @@ run("Analyze Particles...", "size=5-Infinity add");
 `
     initializeMacroEditor('macro-editor-1', code)
 })
+
+Reveal.addEventListener('ij-macro-2', async ()=>{
+    // download imagej macro remotely
+    const response = await fetch("https://wsr.imagej.net/download/Examples/Macro/Colors_of_2021.ijm")
+    const code = await response.text()
+    initializeMacroEditor('macro-editor-2', code)
+})
+
 ```
