@@ -8,7 +8,7 @@ You can run ImageJ.JS directly in the slides:
 ## Try ImageJ Macro
 
 A basic ImageJ macro example:
-<div id="macro-editor-1" style="calc(100vh - 200px)"></div>
+<div id="macro-editor-1"></div>
 
 -----
 <!-- startup script  -->
@@ -23,6 +23,8 @@ async function initializeMacroEditor(editor_container, code){
     editorElm.style.width = '96%';
     editorElm.style.display = 'inline-block';
     editorElm.style.height = 'calc(100vh - 200px)';
+    // force update the slide
+    Reveal.layout();
     let editorWindow;
     const config = {lang: 'javascript'}
     config.templates = [
@@ -64,7 +66,6 @@ async function initializeMacroEditor(editor_container, code){
               ijElm.style.width = '48%';
               ijElm.style.height = editorElm.style.height;
               editorElm.parentNode.insertBefore(ijElm, editorElm.nextSibling);
-              Reveal.layout();
               try {
                   let ij = await api.getWindow("ImageJ.JS-" + editor_container)
                   if(!ij){
