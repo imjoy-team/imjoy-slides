@@ -28,7 +28,7 @@ function startImageJ(){
 async function initializeMacroEditor(editor_container, code){
     const editorElm = document.getElementById(editor_container);
     if(!editorElm) throw new Error("editor container not found: " + editor_container)
-    editorElm.style.width = '96%';
+    editorElm.style.width = '90%';
     editorElm.style.display = 'inline-block';
     editorElm.style.height = 'calc(100vh - 200px)';
     // force update the slide
@@ -70,11 +70,11 @@ async function initializeMacroEditor(editor_container, code){
                   let ij = await api.getWindow("ImageJ.JS-" + editor_container)
                   if(!ij){
                       //put the editor side by side
-                      editorElm.style.width = '40%';
+                      editorElm.style.width = '38.2%';
                       const ijElm = document.createElement('div');
                       ijElm.id = 'imagej-' + editor_container
                       ijElm.style.display = 'inline-block';
-                      ijElm.style.width = '48%';
+                      ijElm.style.width = '61.8%';
                       ijElm.style.height = editorElm.style.height;
                       editorElm.parentNode.insertBefore(ijElm, editorElm.nextSibling);
                       ij = await api.createWindow({src:"https://ij.imjoy.io", name:"ImageJ.JS-" + editor_container, window_id: 'imagej-' + editor_container})
