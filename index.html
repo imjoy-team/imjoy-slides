@@ -94,8 +94,9 @@
       }
       await initializeRevealJS(currentSlidesContent, defaultTheme, defaultTransition);
 
+      const baseUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
       await app.imjoy.pm
-        .reloadPluginRecursively({uri: "https://slides.imjoy.io/assets/SlideEditor.imjoy.html"});
+        .reloadPluginRecursively({uri: baseUrl + "/assets/SlideEditor.imjoy.html"});
       app.addMenuItem({
         label: "✏️ Edit Slides",
         async callback() {
