@@ -237,6 +237,12 @@
     }).then(async app => {
       // get the api object from the root plugin
       const api = app.imjoy.api;
+      app.$on('window-size-pos-changing', (changing)=>{
+        const iframes = document.querySelectorAll('.reveal iframe')
+        for(let iframe of iframes){
+          iframe.style.pointerEvents = changing ? 'none': 'all';
+        }
+      })
       // if you want to let users to load new plugins, add a menu item
       app.addMenuItem({
         label: "➕ Load Plugin",
