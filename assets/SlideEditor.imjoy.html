@@ -62,7 +62,18 @@ class ImJoyPlugin {
             async callback(content) {
                 await api.exportFile(content, 'imjoy-slides.md');
             }
-        }
+        },
+        close: {
+            _rintf: true,
+            type: 'button',
+            label: "Close",
+            icon: "window-close",
+            visible: true,
+            async callback(content) {
+                await editorWindow.close();
+                
+            }
+        },
     }
     let code = ctx && ctx.data && ctx.data.code
 
@@ -80,6 +91,10 @@ class ImJoyPlugin {
         w: 20,
         h: 20,
         window_id: ctx.config && ctx.config.window_id
+    })
+    editorWindow.on("close", ()=>{
+        if(ctx.config && ctx.config.on_close)
+                ctx.config.on_close()
     })
     }
 }

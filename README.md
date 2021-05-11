@@ -50,6 +50,10 @@ A list of available theme can be found [here](https://revealjs.com/themes/).
 You can add `&transition=convex` after into the URL to specify a slide transition.
 
 A list of available transition styles can be found [here](https://revealjs.com/transitions/).
+
+### Show slide numbers
+You can add `&number=1` after into the URL if you want to display the number of each slide.
+
 ### Change the background of a specific slide
 
 You can also specify the background for a specific slide by adding the following line to the beginning of your slide:
