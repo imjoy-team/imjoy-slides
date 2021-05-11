@@ -14,16 +14,24 @@
   <!-- Theme used for syntax highlighted code -->
   <link rel="stylesheet" href="assets/reveal.js/plugin/highlight/monokai.css" id="highlight-theme" />
   <style>
-    .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
-      text-transform: none!important;
+    .reveal h1,
+    .reveal h2,
+    .reveal h3,
+    .reveal h4,
+    .reveal h5,
+    .reveal h6 {
+      text-transform: none !important;
     }
+
     .reveal iframe {
-        max-width: 100%!important;
-        max-height: 100%!important;
+      max-width: 100% !important;
+      max-height: 100% !important;
     }
+
     .button {
       cursor: pointer;
-      background-color: #3b60f4; /* Green */
+      background-color: #3b60f4;
+      /* Green */
       border-radius: 3px;
       color: white;
       padding: 10px 32px;
@@ -32,19 +40,60 @@
       display: inline-block;
       font-size: 16px;
     }
+
+    .splitter {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+    }
+
+    #separator {
+      visibility: hidden;
+      cursor: col-resize;
+      background-color: #aaa;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='30'><path d='M2 0 v30 M5 0 v30 M8 0 v30' fill='none' stroke='black'/></svg>");
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 6px;
+      height: 100%;
+
+      /* Prevent the browser's built-in drag from interfering */
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    #code-editor {
+      /* width: 20%; */
+      height: 100%;
+      min-width: 10px;
+    }
+
+    #reveal-container {
+      /* width: 80%; */
+      height: 100%;
+      min-width: 10px;
+    }
   </style>
 </head>
 
 <body>
-  <div class="reveal" style="z-index: 0">
-    <div class="slides markdown-slide-content">
-      <section data-markdown data-separator="-----" data-separator-vertical="---">
-        <textarea data-template>
+  <div class="splitter">
+    <div id="slide-editor-container">
+
+    </div>
+    <div id="separator"></div>
+    <div id="slide-container" class="reveal" style="z-index: 0">
+      <div class="slides markdown-slide-content">
+        <section data-markdown data-separator="-----" data-separator-vertical="---">
+          <textarea data-template>
             # ImJoy
         </textarea>
-      </section>
+        </section>
+      </div>
     </div>
   </div>
+
   <div id="window-container" style="z-index: 100"></div>
   <div id="menu-container" style="z-index: 200"></div>
   <script src="assets/reveal.js/reveal.js"></script>
@@ -65,62 +114,151 @@
     // add event listener hook to keep track of the event added later
     let oldRevealAddEventListener = mainElem.addEventListener
     mainElem.addEventListener = (event, handler) => {
-      if(!customEventListeners[event])
+      if (!customEventListeners[event])
         customEventListeners[event] = [handler]
       else
         customEventListeners[event].push(handler)
       oldRevealAddEventListener.apply(mainElem, [event, handler])
     }
 
-    function resetCustomEventListeners(){
-      for(let evt in customEventListeners){
-        for(let handler of customEventListeners[evt]){
+    function resetCustomEventListeners() {
+      for (let evt in customEventListeners) {
+        for (let handler of customEventListeners[evt]) {
           Reveal.removeEventListener(evt, handler)
         }
       }
       customEventListeners = {}
     }
 
-    async function startRevealJS(){
-      const slides = getUrlParameter('slides') || 'https://raw.githubusercontent.com/imjoy-team/imjoy-slides/master/slides/imjoy-slides-introduction.md'
+    function initSplitter() {
+      document.getElementById('separator').style.visibility = 'visible'
+      // A function is used for dragging and moving
+      function dragElement(element, direction) {
+        var md; // remember mouse down info
+        const first = document.getElementById("slide-editor-container");
+        const second = document.getElementById("slide-container");
+
+        element.onmousedown = onMouseDown;
+
+        function onMouseDown(e) {
+          //console.log("mouse down: " + e.clientX);
+          md = {
+            e,
+            offsetLeft: element.offsetLeft,
+            offsetTop: element.offsetTop,
+            firstWidth: first.offsetWidth,
+            secondWidth: second.offsetWidth
+          };
+
+          document.onmousemove = onMouseMove;
+          document.onmouseup = () => {
+            //console.log("mouse up");
+            document.onmousemove = document.onmouseup = null;
+            // enable mouse events
+            const iframes = document.querySelectorAll('iframe')
+            for (let iframe of iframes) {
+              iframe.style.pointerEvents = 'all';
+            }
+          }
+
+          // disable mouse events
+          const iframes = document.querySelectorAll('iframe')
+          for (let iframe of iframes) {
+            iframe.style.pointerEvents = 'none';
+          }
+        }
+
+        function onMouseMove(e) {
+          //console.log("mouse move: " + e.clientX);
+          var delta = {
+            x: e.clientX - md.e.clientX,
+            y: e.clientY - md.e.clientY
+          };
+
+          if (direction === "H") // Horizontal
+          {
+            // Prevent negative-sized elements
+            delta.x = Math.min(Math.max(delta.x, -md.firstWidth),
+              md.secondWidth);
+
+            element.style.left = md.offsetLeft + delta.x + "px";
+            first.style.width = (md.firstWidth + delta.x) + "px";
+            second.style.width = (md.secondWidth - delta.x) + "px";
+            Reveal.layout();
+          }
+        }
+      }
+
+
+      dragElement(document.getElementById("separator"), "H");
+    }
+
+    async function startRevealJS() {
+      const slides = getUrlParameter('slides') ||
+        'https://raw.githubusercontent.com/imjoy-team/imjoy-slides/master/slides/imjoy-slides-introduction.md'
       defaultTheme = getUrlParameter('theme') || defaultTheme
       defaultTransition = getUrlParameter('transition') || defaultTransition
       const edit = getUrlParameter('edit')
-      
-      if(slides){
+
+      if (slides) {
         const url = await githubUrlRaw(slides, ".md") || slides;
         const response = await fetch(url)
         currentSlidesContent = await response.text()
       }
       await initializeRevealJS(currentSlidesContent, defaultTheme, defaultTransition);
 
-      const baseUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+      const baseUrl = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
       await app.imjoy.pm
-        .reloadPluginRecursively({uri: baseUrl + "/assets/SlideEditor.imjoy.html"});
+        .reloadPluginRecursively({
+          uri: baseUrl + "/assets/SlideEditor.imjoy.html"
+        });
       app.addMenuItem({
         label: "✏️ Edit Slides",
         async callback() {
           const p = await api.getPlugin('Slide Editor')
+          initSplitter();
           const lastContent = window.localStorage.getItem('config_Slide Editor_imjoy-slides-content')
-          if(lastContent && lastContent != currentSlidesContent){
-            if(await api.confirm("Would you like to restore the slides you edited last time?")){
-              await p.run({data: {code: lastContent}})
+          if (lastContent && lastContent != currentSlidesContent) {
+            if (await api.confirm("Would you like to restore the slides you edited last time?")) {
+              await p.run({
+                data: {
+                  code: lastContent
+                },
+                config: {
+                  window_id: 'slide-editor-container'
+                }
+              })
               return
             }
           }
-          await p.run({data: {code: currentSlidesContent}})
+          await p.run({
+            data: {
+              code: currentSlidesContent
+            },
+            config: {
+              window_id: 'slide-editor-container'
+            }
+          })
         },
       });
-      if(edit){
+      if (edit) {
         // show editor
         const p = await api.getPlugin('Slide Editor')
-        await p.run({data: {code: currentSlidesContent}})
+        initSplitter();
+        await p.run({
+          data: {
+            code: currentSlidesContent
+          },
+          config: {
+            window_id: 'slide-editor-container'
+          }
+        })
       }
       if (screenfull.enabled) {
         app.addMenuItem({
           label: " ⤡ Full Screen [F]",
-          async callback() {     
-              screenfull.toggle(document.documentElement);
+          async callback() {
+            screenfull.toggle(document.documentElement);
           }
         })
       }
@@ -130,19 +268,17 @@
       resetCustomEventListeners();
 
       let currentSlide = null
-      try{
+      try {
         const s = Reveal.getCurrentSlide();
         // save current slide position
         currentSlide = Reveal.getIndices(s);
-      }
-      catch(e){
-      }
+      } catch (e) {}
       const elm = document.querySelector('.markdown-slide-content')
       const container = elm.parentElement;
       for (var c = 0; c < container.childNodes.length; c++) {
-          if (container.childNodes[c] !== elm) {
-            container.removeChild(container.childNodes[c--]);
-          }
+        if (container.childNodes[c] !== elm) {
+          container.removeChild(container.childNodes[c--]);
+        }
       }
       currentSlidesContent = content
 
@@ -153,7 +289,8 @@
           console.error(e)
           api.showMessage(`Failed to execute script: ${e}`)
         }
-        elm.innerHTML = `<section data-markdown data-separator="-----" data-separator-vertical="---"><textarea data-template>${content}</textarea></section>`
+        elm.innerHTML =
+          `<section data-markdown data-separator="-----" data-separator-vertical="---"><textarea data-template>${content}</textarea></section>`
       }
 
       try {
@@ -167,7 +304,7 @@
       } catch (e) {
         alert('Failed to load theme: ' + theme)
       }
-      if(typeof Reveal.removeEventListeners === 'function') Reveal.removeEventListeners();
+      if (typeof Reveal.removeEventListeners === 'function') Reveal.removeEventListeners();
       // More info about initialization & config:
       // - https://revealjs.com/initialization/
       // - https://revealjs.com/config/
@@ -181,23 +318,26 @@
           mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           // pass other options into `MathJax.Hub.Config()`
-          TeX: { Macros: { RR: "{\\bf R}" } }
+          TeX: {
+            Macros: {
+              RR: "{\\bf R}"
+            }
+          }
         },
         // Learn about plugins: https://revealjs.com/plugins/
         plugins: [RevealMarkdown, RevealMath, RevealHighlight, RevealNotes, RevealZoom],
       });
-      
+
       try {
         Reveal.layout();
-        if(currentSlide) {
+        if (currentSlide) {
           // we need this trick to trigger the slide change event
           Reveal.slide(0, 0, 0);
-          setTimeout(()=>{
+          setTimeout(() => {
             // restore slide position
             Reveal.slide(currentSlide.h, currentSlide.v, currentSlide.f);
-          },0)
-        }
-        else{
+          }, 0)
+        } else {
           Reveal.slide(0, 0, 0);
         }
         Reveal.sync();
@@ -205,10 +345,11 @@
         console.error(ex)
       }
 
-      Reveal.on( 'slidechanged', event => {
+      Reveal.on('slidechanged', event => {
         // clean up embedded window
-        for(let w of app.allWindows){
-          if(!w.dialog && !w.window_id.startsWith('plugin_window_')){
+        for (let w of app.allWindows) {
+          if (!w.dialog && !w.window_id.startsWith('plugin_window_') && !w.window_id ===
+            'slide-editor-container') {
             w.close()
           }
         }
@@ -238,10 +379,10 @@
     }).then(async app => {
       // get the api object from the root plugin
       const api = app.imjoy.api;
-      app.$on('window-size-pos-changing', (changing)=>{
+      app.$on('window-size-pos-changing', (changing) => {
         const iframes = document.querySelectorAll('.reveal iframe')
-        for(let iframe of iframes){
-          iframe.style.pointerEvents = changing ? 'none': 'all';
+        for (let iframe of iframes) {
+          iframe.style.pointerEvents = changing ? 'none' : 'all';
         }
       })
       // if you want to let users to load new plugins, add a menu item
@@ -259,8 +400,11 @@
       await api.registerService({
         name: 'ImJoy Slides',
         type: '#imjoy-slides',
-        async show(content, config ){
-          const { theme, transition } = config || {}
+        async show(content, config) {
+          const {
+            theme,
+            transition
+          } = config || {}
           await initializeRevealJS(content, theme || defaultTheme, transition || defaultTransition)
         }
       })
@@ -270,46 +414,45 @@
       window.app = app;
       await startRevealJS();
       app.imjoy.pm
-          .reloadPluginRecursively({
-            uri:
-              "https://imjoy-team.github.io/jupyter-engine-manager/Jupyter-Engine-Manager.imjoy.html"
-          })
-          .then(enginePlugin => {
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            const engine = urlParams.get("engine");
-            const spec = urlParams.get("spec");
-            if (engine) {
-              enginePlugin.api
-                .createEngine({
-                  name: "MyCustomEngine",
-                  nbUrl: engine,
-                  url: engine.split("?")[0]
-                })
-                .then(() => {
-                  console.log("Jupyter Engine connected!");
-                })
-                .catch(e => {
-                  console.error("Failed to connect to Jupyter Engine", e);
-                });
-            } else {
-              enginePlugin.api
-                .createEngine({
-                  name: "MyBinder Engine",
-                  url: "https://mybinder.org",
-                  spec: spec || "oeway/imjoy-binder-image/master"
-                })
-                .then(() => {
-                  console.log("Binder Engine connected!");
-                })
-                .catch(e => {
-                  console.error("Failed to connect to MyBinder Engine", e);
-                });
-            }
-          });
+        .reloadPluginRecursively({
+          uri: "https://imjoy-team.github.io/jupyter-engine-manager/Jupyter-Engine-Manager.imjoy.html"
+        })
+        .then(enginePlugin => {
+          const queryString = window.location.search;
+          const urlParams = new URLSearchParams(queryString);
+          const engine = urlParams.get("engine");
+          const spec = urlParams.get("spec");
+          if (engine) {
+            enginePlugin.api
+              .createEngine({
+                name: "MyCustomEngine",
+                nbUrl: engine,
+                url: engine.split("?")[0]
+              })
+              .then(() => {
+                console.log("Jupyter Engine connected!");
+              })
+              .catch(e => {
+                console.error("Failed to connect to Jupyter Engine", e);
+              });
+          } else {
+            enginePlugin.api
+              .createEngine({
+                name: "MyBinder Engine",
+                url: "https://mybinder.org",
+                spec: spec || "oeway/imjoy-binder-image/master"
+              })
+              .then(() => {
+                console.log("Binder Engine connected!");
+              })
+              .catch(e => {
+                console.error("Failed to connect to MyBinder Engine", e);
+              });
+          }
+        });
       app.addMenuItem({
         label: "ℹ️ Github",
-        callback(){
+        callback() {
           window.open("https://github.com/imjoy-team/imjoy-slides#readme")
         }
       })
