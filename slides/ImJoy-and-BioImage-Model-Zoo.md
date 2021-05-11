@@ -84,7 +84,7 @@ In collabration with Matt McCormick @ Kitware
 
 -----
 ### Works with Jupyter/Binder and Colab
-<button class="button" onclick="api.getPlugin('https://github.com/imjoy-team/imjoy-plugins/blob/master/repository/PixelClassifier.imjoy.html')">Pixel Classifier</button>
+<button class="button" onclick="window.open('https://imjoy.io/lite?binder=https://binder.bioimagearchive.org&plugin=https://github.com/imjoy-team/imjoy-plugins/blob/master/repository/PixelClassifier.imjoy.html')">Pixel Classifier</button>
 
 <img style="height:100%;object-fit:contain;background-color: white;"  src="https://raw.githubusercontent.com/imjoy-team/imjoy-demo-assets/main/image125.gif">
 
@@ -279,6 +279,8 @@ async function runDemo2(){
 Reveal.addEventListener('demo3', async function(){
     await api.createWindow({src: 'https://if.imjoy.io', fullscreen: true, config: {fold: [2]}, data: {code: ZarrPythonCode}, window_id: "window-4"})
 })
+
+
 
 
 ```
