@@ -130,6 +130,19 @@
       customEventListeners = {}
     }
 
+    const cyrb53 = function (str, seed = 0) {
+      let h1 = 0xdeadbeef ^ seed,
+        h2 = 0x41c6ce57 ^ seed;
+      for (let i = 0, ch; i < str.length; i++) {
+        ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+    };
+
     function initSplitter() {
       var md; // remember mouse down info
       const direction = "H"
@@ -218,12 +231,16 @@
         .reloadPluginRecursively({
           uri: baseUrl + "/assets/SlideEditor.imjoy.html"
         });
+
+      const storageKey = slides ? cyrb53(slides) : '';
       app.addMenuItem({
         label: "✏️ Edit Slides",
         async callback() {
           const p = await api.getPlugin('Slide Editor')
           initSplitter();
-          const lastContent = window.localStorage.getItem('config_Slide Editor_imjoy-slides-content')
+
+          const lastContent = window.localStorage.getItem('config_Slide Editor_imjoy-slides-content' +
+            storageKey)
           if (lastContent && lastContent != currentSlidesContent) {
             if (await api.confirm("Would you like to restore the slides you edited last time?")) {
               await p.run({
@@ -232,7 +249,8 @@
                 },
                 config: {
                   window_id: 'slide-editor-container',
-                  on_close: closeSplitter
+                  on_close: closeSplitter,
+                  storage_key: storageKey
                 }
               })
               return
@@ -244,7 +262,8 @@
             },
             config: {
               window_id: 'slide-editor-container',
-              on_close: closeSplitter
+              on_close: closeSplitter,
+              storage_key: storageKey
             }
           })
         },
@@ -259,7 +278,8 @@
           },
           config: {
             window_id: 'slide-editor-container',
-            on_close: closeSplitter
+            on_close: closeSplitter,
+            storage_key: storageKey
           }
         })
       }

@@ -25,77 +25,78 @@ class ImJoyPlugin {
     }
 
     async run(ctx) {
-    const config = {lang: 'markdown'}
-    config.templates = [
-        {
-            name: "New",
-            url: null,
-            lang: 'markdown',
-        },
-        {
-            name: "Basic",
-            url: "https://raw.githubusercontent.com/imjoy-team/imjoy-slides/master/slides/basic.md",
-            lang: "markdown",
+        const storageKey = ctx && ctx.config && ctx.config.storage_key || ''
+        const config = {lang: 'markdown'}
+        config.templates = [
+            {
+                name: "New",
+                url: null,
+                lang: 'markdown',
+            },
+            {
+                name: "Basic",
+                url: "https://raw.githubusercontent.com/imjoy-team/imjoy-slides/master/slides/basic.md",
+                lang: "markdown",
+            }
+        ]
+        config.ui_elements = {
+            save: {
+                _rintf: true,
+                type: 'button',
+                label: "Save",
+                icon: "play",
+                visible: true,
+                shortcut: 'Shift-Enter',
+                async callback(content) {
+                    const services = await api.getServices({name: 'ImJoy Slides'})
+                    const imjoySlides = services[0]
+                    await imjoySlides.show(content)
+                    await api.setConfig('imjoy-slides-content' + storageKey, content);
+                }
+            },
+            export: {
+                _rintf: true,
+                type: 'button',
+                label: "Export",
+                icon: "file-download-outline",
+                visible: true,
+                async callback(content) {
+                    await api.exportFile(content, 'imjoy-slides.md');
+                }
+            },
+            close: {
+                _rintf: true,
+                type: 'button',
+                label: "Close",
+                icon: "window-close",
+                visible: true,
+                async callback(content) {
+                    await editorWindow.close();
+                    
+                }
+            },
         }
-    ]
-    config.ui_elements = {
-        save: {
-            _rintf: true,
-            type: 'button',
-            label: "Save",
-            icon: "play",
-            visible: true,
-            shortcut: 'Shift-Enter',
-            async callback(content) {
-                const services = await api.getServices({name: 'ImJoy Slides'})
-                const imjoySlides = services[0]
-                await imjoySlides.show(content)
-                await api.setConfig('imjoy-slides-content', content);
-            }
-        },
-        export: {
-            _rintf: true,
-            type: 'button',
-            label: "Export",
-            icon: "file-download-outline",
-            visible: true,
-            async callback(content) {
-                await api.exportFile(content, 'imjoy-slides.md');
-            }
-        },
-        close: {
-            _rintf: true,
-            type: 'button',
-            label: "Close",
-            icon: "window-close",
-            visible: true,
-            async callback(content) {
-                await editorWindow.close();
-                
-            }
-        },
-    }
-    let code = ctx && ctx.data && ctx.data.code
+        let code = ctx && ctx.data && ctx.data.code
 
-    if(!code){
-        code = await api.getConfig('imjoy-slides-content');
-    }
-    if(!code){
-        code = `## Slide 1\n-----\n## Slide 2`
-    }
-    const editorWindow = await api.createWindow({
-        src: 'https://if.imjoy.io',
-        name: (ctx && ctx.data && ctx.data.name) ||'ImJoy Slides Editor',
-        config,
-        data: {code},
-        w: 20,
-        h: 20,
-        window_id: ctx.config && ctx.config.window_id
-    })
-    editorWindow.on("close", ()=>{
-        if(ctx.config && ctx.config.on_close)
-                ctx.config.on_close()
-    })
+        if(!code){
+            code = await api.getConfig('imjoy-slides-content');
+        }
+        if(!code){
+            code = `## Slide 1\n-----\n## Slide 2`
+        }
+        const editorWindow = await api.createWindow({
+            src: 'https://if.imjoy.io',
+            name: (ctx && ctx.data && ctx.data.name) ||'ImJoy Slides Editor',
+            config,
+            data: {code},
+            w: 20,
+            h: 20,
+            window_id: ctx.config && ctx.config.window_id
+        })
+        editorWindow.on("close", ()=>{
+            if(ctx.config && ctx.config.on_close)
+                    ctx.config.on_close()
+        })
     }
 }
 
