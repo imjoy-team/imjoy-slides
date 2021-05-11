@@ -78,6 +78,12 @@ You can add math equations in LaTeX (based on [MathJax](https://www.mathjax.org/
 `$$ J(\theta_0,\theta_1) = \sum_{i=0} $$`
 
 ```
+
+### Embed Google drawings
+
+[Google drawings](https://docs.google.com/drawings/) is interactive tool for making online drawings, you can create a google drawing file and embed it directly to your slides. After creating the drawing, you can then go to "File->Publish to to web", click "Embed" and copy and paste the code to your slides markdown.
+
+
 ## Advanced features
 
 ### Add a run button
