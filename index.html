@@ -48,6 +48,7 @@
     }
 
     #separator {
+      visibility: hidden;
       cursor: col-resize;
       background-color: #aaa;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='30'><path d='M2 0 v30 M5 0 v30 M8 0 v30' fill='none' stroke='black'/></svg>");
@@ -137,7 +138,7 @@
       const second = document.getElementById("slide-container");
       first.style.display = 'inline-block'
       splitter.style.display = 'inline-block'
-
+      splitter.style.visibility = 'visible'
       splitter.onmousedown = onMouseDown;
 
       function onMouseDown(e) {
