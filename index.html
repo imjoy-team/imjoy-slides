@@ -348,7 +348,7 @@
       Reveal.on('slidechanged', event => {
         // clean up embedded window
         for (let w of app.allWindows) {
-          if (!w.dialog && !w.window_id.startsWith('plugin_window_') && !w.window_id ===
+          if (!w.dialog && !w.window_id.startsWith('plugin_window_') && w.window_id !==
             'slide-editor-container') {
             w.close()
           }
