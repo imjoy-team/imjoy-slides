@@ -358,18 +358,18 @@
       });
 
       try {
-        Reveal.layout();
+
         if (currentSlide) {
+          Reveal.layout();
           // we need this trick to trigger the slide change event
           Reveal.slide(0, 0, 0);
           setTimeout(() => {
             // restore slide position
             Reveal.slide(currentSlide.h, currentSlide.v, currentSlide.f);
           }, 0)
-        } else {
-          Reveal.slide(0, 0, 0);
+          Reveal.sync();
         }
-        Reveal.sync();
+
       } catch (ex) {
         console.error(ex)
       }
