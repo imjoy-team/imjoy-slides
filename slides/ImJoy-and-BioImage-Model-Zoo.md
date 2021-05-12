@@ -86,7 +86,7 @@ In collabration with Matt McCormick @ Kitware
 ### Works with Jupyter/Binder and Colab
 <button class="button" onclick="window.open('https://imjoy.io/lite?binder=https://binder.bioimagearchive.org&plugin=https://github.com/imjoy-team/imjoy-plugins/blob/master/repository/PixelClassifier.imjoy.html')">Pixel Classifier</button>
 
-<img style="height:100%;object-fit:contain;background-color: white;"  src="https://raw.githubusercontent.com/imjoy-team/imjoy-demo-assets/main/image125.gif">
+<img style="height:70%;object-fit:contain;background-color: white;"  src="https://raw.githubusercontent.com/imjoy-team/imjoy-demo-assets/main/image125.gif">
 
 -----
 ### Interactive Annotation in Colab
@@ -106,7 +106,7 @@ In collabration with Matt McCormick @ Kitware
 
 -----
 ### BioImage.IO + BioImage Archive
-<img style="height:100%;object-fit:contain;" src="https://docs.google.com/drawings/d/e/2PACX-1vQmW38Iws9J6G36cchqaI8BS9RrdBKja7t2Rmn7Qhs9_jXGdVDENyB5Gmm3r8TGpg1uNuJvbd_RxDN5/pub?w=1440&amp;h=1080">
+<img style="height:100%;object-fit:contain;background-color: white;" src="https://docs.google.com/drawings/d/e/2PACX-1vQmW38Iws9J6G36cchqaI8BS9RrdBKja7t2Rmn7Qhs9_jXGdVDENyB5Gmm3r8TGpg1uNuJvbd_RxDN5/pub?w=960&amp;h=720">
 
 
 -----
