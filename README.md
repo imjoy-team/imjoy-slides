@@ -51,6 +51,12 @@ You can add `&transition=convex` after into the URL to specify a slide transitio
 
 A list of available transition styles can be found [here](https://revealjs.com/transitions/).
 
+### Link to a specific slide
+
+You can add for example `#/<slide number>` (e.g. `#/3`) to the end of the URL if want to jump directly to a specific slide.
+
+For example `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md#/3`.
+
 ### Show slide numbers
 You can add `&number=1` after into the URL if you want to display the number of each slide.
 
