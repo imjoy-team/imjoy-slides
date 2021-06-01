@@ -25,7 +25,7 @@ Emma Lundberg Group @ KTH Royal Institute of Technology
 ### ImJoy https://imjoy.io
 Data science tools in the browser
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSBsdhDBrp4L2zWfL_9YOUHCS2zQ51HtjplGa-l_a1hMpNjbqENzmXrcSmYs6yed_NACNZSRH-7qsph/pub?w=1248&amp;h=773">
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vSBsdhDBrp4L2zWfL_9YOUHCS2zQ51HtjplGa-l_a1hMpNjbqENzmXrcSmYs6yed_NACNZSRH-7qsph/pub?w=1248&amp;h=573">
 -----
 # Key concept
  * Sandboxed plugins connected via Remote Procedure calls
