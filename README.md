@@ -37,23 +37,6 @@ A run button: <button class="button" onclick="api.showDialog({src: 'https://kaib
 
 ## Basic features
 
-### Share your slide with others
-To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://slides.imjoy.io/?slides=URL_TO_YOUR_SLIDES`. For example: `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
-
-Note: you can pass `&edit=1` if you want to display the slide editor when the page is loaded.
-### Specify the theme of your slides
-You can add `&theme=white` after into the URL to specify a slide theme.
-
-A list of available theme can be found [here](https://revealjs.com/themes/).
-
-### Specify the transition of your slides
-You can add `&transition=convex` after into the URL to specify a slide transition.
-
-A list of available transition styles can be found [here](https://revealjs.com/transitions/).
-
-### Show slide numbers
-You can add `&number=1` after into the URL if you want to display the number of each slide.
-
 ### Change the background of a specific slide
 
 You can also specify the background for a specific slide by adding the following line to the beginning of your slide:
@@ -86,6 +69,38 @@ You can add math equations in LaTeX (based on [MathJax](https://www.mathjax.org/
 ### Embed Google drawings
 
 [Google drawings](https://docs.google.com/drawings/) is interactive tool for making online drawings, you can create a google drawing file and embed it directly to your slides. After creating the drawing, you can then go to "File->Publish to to web", click "Embed" and copy and paste the code to your slides markdown.
+
+
+### Share your slide with others
+To share your slides with others, you can upload your markdown file (as a file with `.md` extension) to [Gist](https://gist.github.com/) or any Github repo. For example: https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md. Then construct a presentation URL with your markdown file URL: `https://slides.imjoy.io/?slides=URL_TO_YOUR_SLIDES`. For example: `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md`. You can try it [here](https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md).
+
+Note: you can pass `&edit=1` if you want to display the slide editor when the page is loaded. For example `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md&edit=1`.
+
+#### Specify the theme of your slides
+You can add `&theme=white` after into the URL to specify a slide theme.
+
+For example `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md&theme=white`.
+
+A list of available theme can be found [here](https://revealjs.com/themes/).
+
+
+#### Specify the transition of your slides
+You can add `&transition=convex` after into the URL to specify a slide transition.
+
+For example `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md&transition=convex`.
+
+A list of available transition styles can be found [here](https://revealjs.com/transitions/).
+
+#### Show slide numbers
+You can add `&number=1` after into the URL if you want to display the number of each slide.
+
+For example `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md&number=1`.
+
+#### Link to a specific slide
+
+You can add for example `#/<slide number>` (e.g. `#/3`) to the end of the URL if want to jump directly to a specific slide.
+
+For example `https://slides.imjoy.io/?slides=https://github.com/imjoy-team/imjoy-slides/blob/master/slides/basic.md#/3`.
 
 
 ## Advanced features
