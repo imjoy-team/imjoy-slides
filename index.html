@@ -441,6 +441,12 @@
       window.api = api;
       window.imjoy = app.imjoy
       window.app = app;
+      // TODO: hacky solution, need further investigation
+      imjoy.event_bus.on("add_window", w => {
+        if(imjoy.wm.windows.indexOf(w)<0){
+          imjoy.wm.windows.push(w);
+        }
+      });
       await startRevealJS();
       app.imjoy.pm
         .reloadPluginRecursively({
@@ -487,7 +493,7 @@
       })
     }).catch(e => {
       console.error(e)
-      startRevealJS(slides, theme);
+      startRevealJS();
     })
   </script>
 </body>
