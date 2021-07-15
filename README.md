@@ -28,7 +28,7 @@ A run button: <button class="button" onclick="api.showDialog({src: 'https://kaib
 ```
   As shown above, you can use `-----` to separate horizontal slides. Optionally, if you want to fit more content in one slides, you can use `---` to separate vertical sections.
 
-  With the builtin editor, you can edit directly and click "Save" (or press the "Shift+Enter" key combination). The slides will be rendered directly behind the editor, you can either move the editor or close it to see the preview. To open the editor again, you can click ["Edit Slides"](https://github.com/imjoy-team/imjoy-slides/blob/master/assets/screenshot-imjoy-slide-editor.png) in the ImJoy icon located in the upper-right corner.
+  With the builtin editor, you can edit directly and click "Save" (or press the "Shift+Enter" key combination). The slides will be rendered directly beside the editor, you can either keep the editor side-by-side with the preview or close it to see it in fullscreen. To open the editor again, you can click ["Edit Slides"](https://github.com/imjoy-team/imjoy-slides/blob/master/assets/screenshot-imjoy-slide-editor.png) in the ImJoy icon located in the upper-right corner.
 
   At any time, you can click the `Export` button to export your slides as a markdown file, we recommend you do that before you close the browser tab to avoid losing your slides. 
 
