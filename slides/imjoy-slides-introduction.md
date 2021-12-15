@@ -2,7 +2,7 @@
 
 Powering interactive presentation with ImJoy plugins
 
-You can run ImJoy plugins, for example: <button class="button" onclick="api.showDialog({src: 'https://hms-dbmi.github.io/vizarr/?source=https://s3.embassy.ebi.ac.uk/idr/zarr/v0.1/4495402.zarr'})">Run</button>
+You can run ImJoy plugins, for example: <button class="button" onclick="api.showDialog({src: 'https://hms-dbmi.github.io/vizarr/?source=https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.1/4495402.zarr'})">Run</button>
 
 -----
 <!-- .slide: data-state="embed-demo" -->
